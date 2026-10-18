@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ArgiaMart — Minimarket Online</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="splash" class="splash">
+  <div class="splash-logo">A</div>
+  <div class="splash-name">ArgiaMart</div>
+  <div class="splash-bar"><div class="splash-fill"></div></div>
+</div>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a href="#" class="logo" data-page="home"><span class="logo-mark">A</span><span class="logo-text">ArgiaMart</span></a>
+    <div class="search-wrap"><input id="globalSearch" class="search-input" type="search" placeholder="Cari produk... (Ctrl+K)" autocomplete="off"></div>
+    <div class="topnav-links">
+      <a href="#" data-page="home" class="nav-link active">Beranda</a>
+      <a href="#" data-page="products" class="nav-link">Produk</a>
+      <a href="#" data-page="categories" class="nav-link">Kategori</a>
+      <a href="#" data-page="wishlist" class="nav-link">Wishlist</a>
+      <a href="#" data-page="tutorial" class="nav-link">Tutorial</a>
+      <a href="#" data-page="orders" class="nav-link">Pesanan</a>
+    </div>
+    <div class="topnav-actions">
+      <button id="notifBtn" class="icon-btn" title="Notifikasi">🔔<span id="notifBadge" class="cart-badge" style="display:none;background:var(--warn)">0</span></button>
+      <button id="themeToggle" class="icon-btn" title="Tema">🌙</button>
+      <button id="cartBtn" class="icon-btn cart-btn" title="Keranjang">🛒<span id="cartBadge" class="cart-badge">0</span></button>
+      <button id="accountBtn" class="icon-btn" title="Akun">👤</button>
+    </div>
+  </div>
+</nav>
+
+<main class="main">
+  <section id="page-home" class="page active">
+    <div class="hero">
+      <div class="hero-text">
+        <span class="hero-eyebrow">Minimarket online · 3000+ produk</span>
+        <h1>Belanja kebutuhan harian, <span class="grad-text">lebih mudah</span>.</h1>
+        <p>Ribuan produk pilihan dari makanan, minuman, hingga kebutuhan rumah — dikirim cepat, harga bersaing, tanpa antre.</p>
+        <div class="hero-actions">
+          <a href="#" class="btn btn-primary" data-page="products">Mulai Belanja</a>
+          <a href="#" class="btn btn-ghost" data-page="tutorial">Lihat Panduan</a>
+        </div>
+      </div>
+      <div class="hero-art"><div class="hero-blob"></div><div class="hero-emoji">🛍️</div></div>
+    </div>
+    <h2 class="section-title">Produk Terlaris</h2>
+    <div id="homeBestSellers" class="product-grid"></div>
+    <h2 class="section-title">Kategori Pilihan</h2>
+    <div id="homeCategories" class="category-grid"></div>
+    <h2 class="section-title">Baru Dilihat</h2>
+    <div id="homeRecent" class="product-grid"></div>
+    <div class="promo-banner">
+      <div><div class="promo-tag">PROMO</div><h3>Gratis ongkir untuk pembelian di atas Rp100.000</h3><p>Berlaku seluruh wilayah. Otomatis diterapkan saat checkout.</p></div>
+      <div class="promo-emoji">🚚</div>
+    </div>
+  </section>
+
+  <section id="page-products" class="page">
+    <div class="products-layout">
+      <aside class="sidebar">
+        <div class="filter-block"><h4>Kategori</h4><div id="catFilters" class="cat-filters"></div></div>
+        <div class="filter-block"><h4>Rentang Harga</h4>
+          <input type="range" id="priceMin" min="0" max="80000" step="500" value="0">
+          <input type="range" id="priceMax" min="0" max="80000" step="500" value="80000">
+          <div class="price-labels"><span id="priceMinLabel">Rp0</span><span id="priceMaxLabel">Rp80.000</span></div>
+        </div>
+        <div class="filter-block"><h4>Rating Minimum</h4>
+          <select id="ratingFilter"><option value="0">Semua</option><option value="3">3+ ★</option><option value="4">4+ ★</option><option value="4.5">4.5+ ★</option></select>
+        </div>
+        <div class="filter-block"><label class="check-row"><input type="checkbox" id="inStockOnly"><span>Hanya stok tersedia</span></label></div>
+        <div class="filter-block"><h4>Urutkan</h4>
+          <select id="sortSelect">
+            <option value="default">Default</option><option value="price-asc">Harga ↑</option>
+            <option value="price-desc">Harga ↓</option><option value="name-asc">Nama A-Z</option>
+            <option value="name-desc">Nama Z-A</option><option value="stock">Stok Terbanyak</option>
+            <option value="rating">Rating Tertinggi</option><option value="sold">Terlaris</option>
+          </select>
+        </div>
+        <button id="resetFilters" class="btn btn-ghost btn-block">Reset Filter</button>
+      </aside>
+      <div class="products-main">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+          <div id="resultCounter" class="result-counter"></div>
+          <button id="viewToggle" class="btn btn-ghost btn-sm">▦</button>
+        </div>
+        <div id="productGrid" class="product-grid"></div>
+        <div id="pagination" class="pagination"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="page-categories" class="page"><h1 class="page-title">Kategori</h1><div id="categoryCards" class="category-cards"></div></section>
+  <section id="page-wishlist" class="page"><h1 class="page-title">Wishlist</h1><div id="wishlistGrid" class="product-grid"></div></section>
+  <section id="page-tutorial" class="page">
+    <h1 class="page-title">Panduan Belanja</h1>
+    <p class="page-sub">Sepuluh langkah sederhana dari daftar sampai pesanan tiba.</p>
+    <div id="tutorialSteps" class="tutorial-steps"></div>
+    <h2 class="section-title">Pertanyaan Umum</h2>
+    <div id="faqList" class="faq-list"></div>
+  </section>
+  <section id="page-orders" class="page"><h1 class="page-title">Pesanan Saya</h1><div id="ordersList" class="orders-list"></div></section>
+  <section id="page-auth" class="page">
+    <div class="auth-wrap"><div class="auth-card">
+      <div class="auth-tabs"><button type="button" class="auth-tab active" data-tab="login">Masuk</button><button type="button" class="auth-tab" data-tab="register">Daftar</button></div>
+      <form id="loginForm" class="auth-form active" novalidate>
+        <label>Email<input type="email" id="loginEmail" placeholder="nama@email.com"></label><div class="field-err" id="loginEmailErr"></div>
+        <label>Password<input type="password" id="loginPassword" placeholder="••••••"></label><div class="field-err" id="loginPasswordErr"></div>
+        <button type="submit" class="btn btn-primary btn-block">Masuk</button>
+      </form>
+      <form id="registerForm" class="auth-form" novalidate>
+        <label>Nama Lengkap<input type="text" id="regName" placeholder="Nama Anda"></label><div class="field-err" id="regNameErr"></div>
+        <label>Email<input type="email" id="regEmail" placeholder="nama@email.com"></label><div class="field-err" id="regEmailErr"></div>
+        <label>Password<input type="password" id="regPassword" placeholder="Minimal 6 karakter"></label><div class="field-err" id="regPasswordErr"></div>
+        <label>Konfirmasi Password<input type="password" id="regPassword2" placeholder="Ulangi password"></label><div class="field-err" id="regPassword2Err"></div>
+        <button type="submit" class="btn btn-primary btn-block">Daftar</button>
+      </form>
+    </div></div>
+  </section>
+  <section id="page-profile" class="page"><h1 class="page-title">Profil</h1><div id="profileContent"></div></section>
+</main>
+
+<aside id="cartDrawer" class="cart-drawer">
+  <div class="cart-header"><h3>Keranjang</h3><button class="modal-close" id="cartClose">✕</button></div>
+  <div id="cartItems" class="cart-items"></div>
+  <div id="cartSummary" class="cart-summary"></div>
+</aside>
+<div id="cartBackdrop" class="cart-backdrop"></div>
+
+<div class="modal" id="productModal"><div class="modal-backdrop" data-close="productModal"></div><div class="modal-box modal-wide"><button class="modal-close" data-close="productModal">✕</button><div id="productModalBody"></div></div></div>
+
+<div class="modal" id="checkoutModal"><div class="modal-backdrop" data-close="checkoutModal"></div><div class="modal-box modal-wide"><button class="modal-close" data-close="checkoutModal">✕</button>
+  <h3 class="modal-title">Checkout</h3>
+  <form id="checkoutForm" novalidate>
+    <div class="checkout-grid">
+      <div class="checkout-form">
+        <label>Nama Penerima<input id="coName" type="text" required></label>
+        <label>No. HP<input id="coPhone" type="tel" required></label>
+        <label>Alamat Lengkap<textarea id="coAddress" rows="3" required></textarea></label>
+        <label>Kota<input id="coCity" type="text" required></label>
+        <label>Kode Pos<input id="coZip" type="text" required></label>
+        <label>Metode Bayar<select id="coPayment"><option>COD</option><option>Transfer Bank</option><option>E-Wallet</option></select></label>
+        <label>Kode Kupon (opsional)<input id="coCoupon" type="text" placeholder="HEMAT10, GRATIS5K, NEWBIE, ARGIA20"></label>
+      </div>
+      <div class="checkout-summary" id="checkoutSummary"></div>
+    </div>
+    <button type="submit" class="btn btn-primary btn-block">Konfirmasi Pesanan</button>
+  </form>
+</div></div>
+
+<div class="modal" id="invoiceModal"><div class="modal-backdrop" data-close="invoiceModal"></div><div class="modal-box modal-wide">
+  <button class="modal-close no-print" data-close="invoiceModal">✕</button>
+  <div id="invoiceBody"></div>
+  <button class="btn btn-primary btn-block no-print" id="printInvoice">🖨 Cetak Struk</button>
+</div></div>
+
+<div class="modal" id="loginRequiredModal"><div class="modal-backdrop" data-close="loginRequiredModal"></div><div class="modal-box modal-sm">
+  <h3 class="modal-title">Login Diperlukan</h3>
+  <p class="modal-text">Masuk dulu untuk melanjutkan checkout.</p>
+  <button class="btn btn-primary btn-block" id="gotoAuthBtn">Ke Halaman Login</button>
+</div></div>
+
+<div class="modal" id="notifModal"><div class="modal-backdrop" data-close="notifModal"></div><div class="modal-box modal-sm">
+  <button class="modal-close" data-close="notifModal">✕</button>
+  <h3 class="modal-title">Notifikasi</h3>
+  <div id="notifList" class="notif-list"></div>
+</div></div>
+
+<div id="toastContainer" class="toast-container"></div>
+<script src="app.js" defer></script>
+</body>
+</html>
